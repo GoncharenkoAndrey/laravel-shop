@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, "index"])->name("index");
+Route::get("/{categories}", [MainController::class, "categories"])->name("categories");
+Route::get("/cart/place", [CartController::class, "cartPlace"])->name("cart-place");
+Route::post("/cart/add/{id}", [CartController::class, "cartAdd"])->name("cart-add");
+Route::post("/cart/remove/{id}", [CartController::class, "cartRemove"])->name("cart-remove");
+Route::get("/{category}", [MainController::class,"category"])->name("category");
+Route::get("/{product}", [MainController::class, "product"])->name("product");
+Route::get("/cart", [CartController::class,"cart"])->name("cart");
+Route::post("/cart/confirm", [CartController::class, "cartConfirm"])->name("cart-confirm");
